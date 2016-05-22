@@ -120,7 +120,7 @@ local function create(params)
   local optimState = {maxIter = 1000, verbose=true}
 
   -- Functions --
-  local function artificialPrint(loss)
+  local function artificialPrint(t, loss)
     print(string.format('Iteration %d / %d', t, 1000))
     for i, lossModule in ipairs(contentLosses) do
       print(string.format('  Content %d loss: %f', i, lossModule.loss))
