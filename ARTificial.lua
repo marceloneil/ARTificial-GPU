@@ -145,7 +145,7 @@ local function create(params)
     local disp = deprocess(img:double())
     disp = image.minmax{tensor = disp, min = 0, max = 1}
     image.save(params.name, disp)
-    uploadS3(params.name, params.id)
+    uploadS3(params.name, params.email, params.id)
   end
 
   local numCalls = 0
@@ -302,10 +302,10 @@ function TVLoss:updateGradInput(input, gradOutput)
   return self.gradInput
 end
 
-function uploadS3(name, id)
+function uploadS3(name, email, id)
   local imgUpload = assert(io.open(name)):read("*all")
   print(bucket:put(name, imgUpload))
-  local reqbody = '{"idnum":' .. id .. ',"productImg":"https://s3.amazonaws.com/artificial-neural/' .. name .. '","recipient":"marcel@marceloneil.com"}'
+  local reqbody = '{"productImg":"https://s3.amazonaws.com/artificial-neural/' .. name .. '","recipient":"' .. email .. '"}'
   print(reqbody)
   local result, respcode, respheaders, respstatus = http.request {
        method = "POST",
@@ -316,6 +316,7 @@ function uploadS3(name, id)
            ["content-length"] = tostring(#reqbody)
        }
    }
+   os.remove(id)
 end
 
 app.get('/', function(req, res)
@@ -329,6 +330,7 @@ app.post('/submitTask', function(req, res)
   idnum = req.body.idnum
   contentURL =  req.body.contentImg
   styleURL = req.body.styleImg
+  email = req.body.email
   os.execute('mkdir ' .. tostring(idnum))
 
   contentFile = tostring(idnum) .. string.gsub(contentURL, 'https://s3.amazonaws.com/artificial%-neural/', '/')
@@ -350,14 +352,15 @@ app.post('/submitTask', function(req, res)
     sf:close()
   end
 
-  uploadS3(styleFile[1], idnum)
-  --[[create({
+  uploadS3(styleFile[1], email, idnum)
+  create({
     content = contentFile,
     style = styleFile[1],
     blendWeights = nil,
     name = tostring(idnum) .. '/product.png',
+    email = email,
     id = idnum
-  })]]--
+  })
   res.send('Completed!')
 end)
 
