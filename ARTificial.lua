@@ -328,9 +328,9 @@ app.post('/submitTask', function(req, res)
     table.insert(styleFile, tostring(idnum) .. string.gsub(url, 'https://s3.amazonaws.com/artificial%-neural/', '/'))
   end
   local tab = json.decode(styleURL)
+  print(tab)
+  print(styleURL)
   for i = 0, #styleURL do
-    print(tab)
-    print(styleURL)
     local styleBody, styleCode = http.request(styleURL[i])
     if not styleBody then error(styleCode) end
     local sf = assert(io.open(styleFile[i], 'wb'))
