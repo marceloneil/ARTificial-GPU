@@ -303,7 +303,7 @@ end
 --print(bucket:put("Saint-Louis-River.jpg", imgUpload))
 
 app.get('/', function(req, res)
-  res.send('<a href="art-ificial.net">art-ificial.net</a>')
+  res.send('<a href="http://art-ificial.net">art-ificial.net</a>')
 end)
 
 app.post('/submitTask/', function(req, res)
