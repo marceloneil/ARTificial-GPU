@@ -9,8 +9,12 @@ require 'cudnn'
 
 local http = require('socket.http')
 local app = require('waffle').CmdLine()
-local s3 = require "resty.s3"
-local s3, err = s3:new(os.getenv("AWSID"), os.getenv("AWSKEY"))
+s3 = require 's3'
+local bucket = s3:connect{
+  os.getEnv('AWSID'),
+  os.getEnv('AWSKEY'),
+  bucket="artificial-neural",
+}
 cutorch.setDevice(1)
 cudnn.benchmark = true
 cudnn.SpatialConvolution.accGradParameters = nn.SpatialConvolutionMM.accGradParameters
@@ -295,10 +299,7 @@ function TVLoss:updateGradInput(input, gradOutput)
   return self.gradInput
 end
 
-print('yep')
-final_url, err = s3:upload_url('examples/inputs/Dinant-and-the-Meuse.jpg', 'artificial-neural', 'Dinant-and-the-Meuse.jpg') -- test
-print(final_url)
-print('nope')
+bucket:put("examples/inputs/Saint-Louis-River.jpg", "Saint-Louis-River.jpg")
 
 app.get('/(%a+)', function(req, res)
   image_url = 'https://s3.amazonaws.com/artificial-neural' .. req.url.path
