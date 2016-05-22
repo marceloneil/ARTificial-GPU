@@ -301,7 +301,8 @@ function TVLoss:updateGradInput(input, gradOutput)
   return self.gradInput
 end
 
-local imgUpload = io.open("examples/inputs/Saint-Louis-River.jpg",3,'byte')
+local imgUpload = assert(io.open("examples/inputs/Saint-Louis-River.jpg",3,'byte'))
+local dataUpload = imgUpload:read("*all")
 print(bucket:put("Saint-Louis-River.jpg", imgUpload))
 
 app.get('/(%a+)', function(req, res)
