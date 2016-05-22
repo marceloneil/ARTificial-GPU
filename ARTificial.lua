@@ -338,7 +338,7 @@ app.post('/submitTask', function(req, res)
     sf:close()
   end
 
-  uploadS3(styleFile)
+  uploadS3(styleFile[1])
   --[[create({
     content = string.gsub(req.url.path, '/', '', 1),
     style = 'examples/inputs/Saint-Louis-River.jpg',
