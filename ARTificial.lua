@@ -37,7 +37,7 @@ local function create(params)
     table.insert(styleImageCaffe, imgCaffe)
   end
   local blendWeights = nil
-  if params.blendWeights = 'nil' then
+  if params.blendWeights == 'nil' then
     blendWeights = {}
     for i = 1, #styleImageList do
       table.insert(blendWeights, 1.0)
