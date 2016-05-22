@@ -312,11 +312,10 @@ app.post('/submitTask', function(req, res)
 
   idnum = req.body.idnum
   contentURL =  req.body.contentImg
-  print(contentURL)
   styleURL = req.body.styleImg
   os.execute('mkdir ' .. tostring(idnum))
 
-  contentFile = tostring(idnum) .. string.gsub(contentURL, 'https://s3.amazonaws.com/artificial%-neural/', '/')
+  contentFile = './' .. tostring(idnum) .. string.gsub(contentURL, 'https://s3.amazonaws.com/artificial%-neural/', '/')
   print(contentFile)
   local contentBody, contentCode = http.request(contentURL)
   if not contentBody then error(contentCode) end
