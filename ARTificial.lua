@@ -10,8 +10,6 @@ require 'cudnn'
 local http = require('socket.http')
 local app = require('waffle').CmdLine()
 s3 = require 's3'
-print(os.getenv('AWSID'))
-print(os.getenv('AWSKEY'))
 local bucket = s3:connect{
   awsId=os.getenv('AWSID'),
   awsKey=os.getenv('AWSKEY'),
@@ -302,7 +300,6 @@ function TVLoss:updateGradInput(input, gradOutput)
 end
 
 local imgUpload = assert(io.open("examples/inputs/Saint-Louis-River.jpg")):read("*all")
-print(imgUpload)
 print(bucket:put("Saint-Louis-River.jpg", imgUpload))
 
 app.get('/(%a+)', function(req, res)
