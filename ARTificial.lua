@@ -296,7 +296,7 @@ end
 
 app.get('/(%a+)', function(req, res)
   print(req)
-  image_url = 'https://s3.amazonaws.com/artificial-neural/' + req.params[1]
+  image_url = 'https://s3.amazonaws.com/artificial-neural/' .. req.params[1]
   --local body, code = http.request(image_url)
   --if not body then error(code) end
   --local f = assert(io.open('./temp.png', 'wb'))
