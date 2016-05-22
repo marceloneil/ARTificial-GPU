@@ -323,7 +323,7 @@ app.post('/submitTask', function(req, res)
   local cf = assert(io.open(contentFile))
   cf:write(contentBody)
   cf:close()
-
+  print('dunzo')
   styleFile = {}
   for _, url in ipairs(styleURL) do
     table.insert(styleFile, tostring(idnum) .. string.gsub(url, 'https://s3.amazonaws.com/artificial%-neural/', '/'))
