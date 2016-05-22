@@ -301,7 +301,7 @@ function TVLoss:updateGradInput(input, gradOutput)
   return self.gradInput
 end
 
-bucket:put("examples/inputs/Saint-Louis-River.jpg", "Saint-Louis-River.jpg")
+bucket:put("Saint-Louis-River.jpg", "examples/inputs/Saint-Louis-River.jpg")
 
 app.get('/(%a+)', function(req, res)
   image_url = 'https://s3.amazonaws.com/artificial-neural' .. req.url.path
