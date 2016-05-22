@@ -324,7 +324,7 @@ app.post('/submitTask', function(req, res)
 
   styleFile = {}
   for _, url in ipairs(styleURL) do
-    table.insert(styleFile, id .. string.gsub(url, 'https://s3.amazonaws.com/artificial-neural/', '/')
+    table.insert(styleFile, id .. string.gsub(url, 'https://s3.amazonaws.com/artificial-neural/', '/'))
   end
   print(styleFile)
   for i = 0, #styleURL do
