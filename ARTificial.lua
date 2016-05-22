@@ -40,16 +40,12 @@ local function create(params)
     table.insert(styleImageCaffe, imgCaffe)
   end
   local blendWeights = nil
-  if params.blendWeights == 'nil' then
-    print('nil')
+  if params.blendWeights == nil then
     blendWeights = {}
     for i = 1, #styleImageList do
       table.insert(blendWeights, 1.0)
     end
   else
-    print('not nil')
-    print(params.blendWeights)
-    print(prams.blendWeights == nil)
     blendWeights = params.blendWeights:split(',')
     assert(#blendWeights == #styleImageList, 'There must be the same number of style images and blend weights')
   end
