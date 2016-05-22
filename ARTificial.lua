@@ -323,11 +323,13 @@ app.get('/', function(req, res)
   res.send('<a href="http://art-ificial.net">art-ificial.net</a>')
 end)
 
+stack = {}
 app.post('/submitTask', function(req, res)
   print(req.body)
   -- Process Request --
 
   idnum = req.body.idnum
+  table.insert(stack, idnum)
   contentURL =  req.body.contentImg
   styleURL = req.body.styleImg
   email = req.body.email
@@ -352,15 +354,15 @@ app.post('/submitTask', function(req, res)
     sf:close()
   end
 
-  uploadS3(contentFile, email, idnum)
-  --[[create({
+  --uploadS3(contentFile, email, idnum)
+  create({
     content = contentFile,
     style = styleFile[1],
     blendWeights = nil,
     name = tostring(idnum) .. '/product.png',
     email = email,
     id = idnum
-  })]]--
+  })
   res.send('Completed!')
 end)
 
