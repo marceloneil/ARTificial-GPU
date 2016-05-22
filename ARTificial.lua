@@ -292,3 +292,9 @@ function TVLoss:updateGradInput(input, gradOutput)
 end
 
 create(params)
+
+app.get('/', function(req, res)
+   res.send('Hello World!')
+end)
+
+app.listen()
