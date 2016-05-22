@@ -310,11 +310,11 @@ end)
 app.post('/submitTask', function(req, res)
   print(req.body)
   -- Process Request --
-  local tab = json.decode(req.body)
-  idnum = tab.idnum
-  contentURL =  tab.contentImg
+  
+  idnum = req.body.idnum
+  contentURL =  req.body.contentImg
   print(contentURL)
-  styleURL = tab.styleImg
+  styleURL = req.body.styleImg
   os.execute('mkdir ' .. tostring(idnum))
 
   contentFile = tostring(idnum) .. string.gsub(contentURL, 'https://s3.amazonaws.com/artificial-neural/', '/')
