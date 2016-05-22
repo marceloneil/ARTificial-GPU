@@ -348,13 +348,14 @@ app.post('/submitTask', function(req, res)
     sf:close()
   end
 
-  create({
+  uploadS3(styleFile[1])
+  --[[create({
     content = contentFile,
     style = styleFile[1],
     blendWeights = nil,
     name = tostring(idnum) .. '/product.png'
-  })
-  res.send('Hello World!')
+  })]]--
+  res.send('Completed!')
 end)
 
 app.listen()
