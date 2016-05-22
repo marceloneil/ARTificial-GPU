@@ -294,7 +294,7 @@ end
 
 -- create(params)
 
-app.get('/', function(req, res)
+app.get('/(%a+)', function(req, res)
   print(req)
   image_url = 'https://s3.amazonaws.com/artificial-neural/' + req.params[1]
   --local body, code = http.request(image_url)
