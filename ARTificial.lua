@@ -7,7 +7,7 @@ require 'cutorch'
 require 'cunn'
 require 'cudnn'
 
-local app = require('waffle').CmdLine()
+local app = require('waffle').CmdLine(host=0.0.0.0)
 cutorch.setDevice(1)
 cudnn.benchmark = true
 cudnn.SpatialConvolution.accGradParameters = nn.SpatialConvolutionMM.accGradParameters
