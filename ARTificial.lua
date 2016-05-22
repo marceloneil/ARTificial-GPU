@@ -304,9 +304,7 @@ end
 function uploadS3(name, id)
   local imgUpload = assert(io.open(name)):read("*all")
   print(bucket:put(name, imgUpload))
-  local reqbody =   { "idnum" : id,
-                      "productImg" : "https://s3.amazonaws.com/artificial-neural/" .. name,
-                      "email" : "Kev, you better post me those emails" }
+  local reqbody =   { "idnum" : id, "productImg" : "https://s3.amazonaws.com/artificial-neural/" .. name, "email" : "Kev, you better post me those emails" }
   local result, respcode, respheaders, respstatus = http.request {
        method = "POST",
        url = "http://artificial-kshen3778.c9users.io/sendData",
