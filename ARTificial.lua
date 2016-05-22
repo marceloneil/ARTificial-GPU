@@ -340,7 +340,7 @@ app.post('/submitTask', function(req, res)
 
   create({
     content = contentFile,
-    style = styleFile[i],
+    style = styleFile[1],
     blendWeights = nil,
     name = tostring(idnum) .. '/product.png'
   })
