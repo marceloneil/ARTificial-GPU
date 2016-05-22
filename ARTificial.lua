@@ -10,6 +10,8 @@ require 'cudnn'
 local http = require('socket.http')
 local app = require('waffle').CmdLine()
 s3 = require 's3'
+print(os.getenv('AWSID'))
+print(os.getenv('AWSKEY'))
 local bucket = s3:connect{
   os.getenv('AWSID'),
   os.getenv('AWSKEY'),
