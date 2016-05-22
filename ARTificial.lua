@@ -148,7 +148,7 @@ local function create(params)
     end
     if numCalls % 100 == 0 then
       artificialPrint(numCalls, loss)
-      if numCalls == 1000:
+      if numCalls == 1000 then
         artificialSave()
       end
     end
