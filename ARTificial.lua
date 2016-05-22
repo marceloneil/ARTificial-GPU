@@ -295,7 +295,9 @@ end
 -- create(params)
 
 app.get('/(%a+)', function(req, res)
-  image_url = 'https://s3.amazonaws.com/artificial-neural/' .. req.params[1]
+  image_url = 'https://s3.amazonaws.com/artificial-neural' .. req.url.path
+  filename = string.gsub(req.url.path, '/', '', 1)
+  print(filename)
   print(req)
   print(image_url)
   --local body, code = http.request(image_url)
