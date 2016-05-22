@@ -23,8 +23,8 @@ local ltn12 = require('ltn12')
   content = 'examples/inputs/Dinant-and-the-Meuse.jpg',
   style = 'examples/inputs/Saint-Louis-River.jpg',
   blendWeights = nil,
-  name = 'test.png']]--
-}
+  name = 'test.png'
+}]]--
 
 local function create(params)
 
