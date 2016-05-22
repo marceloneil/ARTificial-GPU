@@ -15,6 +15,7 @@ local bucket = s3:connect{
   awsKey=os.getenv('AWSKEY'),
   bucket="artificial-neural",
 }
+local json = require('cjson')
 cutorch.setDevice(1)
 cudnn.benchmark = true
 cudnn.SpatialConvolution.accGradParameters = nn.SpatialConvolutionMM.accGradParameters
@@ -326,7 +327,9 @@ app.post('/submitTask', function(req, res)
   for _, url in ipairs(styleURL) do
     table.insert(styleFile, tostring(idnum) .. string.gsub(url, 'https://s3.amazonaws.com/artificial%-neural/', '/'))
   end
+  local tab = json.decode(styleURL)
   for i = 0, #styleURL do
+    print(tab)
     print(styleURL)
     local styleBody, styleCode = http.request(styleURL[i])
     if not styleBody then error(styleCode) end
