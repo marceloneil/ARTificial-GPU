@@ -295,24 +295,6 @@ function TVLoss:updateGradInput(input, gradOutput)
   return self.gradInput
 end
 
-local function authHeader()
-  Authorization = 'AWS ' .. AWSAccessKeyId .. ':' .. Signature
-
-  Signature = Base64( HMAC-SHA1( YourSecretAccessKeyID, UTF-8-Encoding-Of( StringToSign ) ) );
-
-  StringToSign = HTTP-Verb + "\n" +
-  	Content-MD5 + "\n" +
-  	Content-Type + "\n" +
-  	Date + "\n" +
-  	CanonicalizedAmzHeaders +
-  	CanonicalizedResource;
-
-  CanonicalizedResource = [ "/" + Bucket ] +
-  	<HTTP-Request-URI, from the protocol name up to the query string> +
-  	[ subresource, if present. For example "?acl", "?location", "?logging", or "?torrent"];
-
-  CanonicalizedAmzHeaders = <described below>
-
 app.get('/(%a+)', function(req, res)
   image_url = 'https://s3.amazonaws.com/artificial-neural' .. req.url.path
   local body, code = http.request(image_url)
