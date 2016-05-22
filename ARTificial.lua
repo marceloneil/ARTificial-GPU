@@ -312,7 +312,7 @@ app.post('/submitTask', function(req, res)
   idnum = req.body.idnum
   contentURL =  req.body.contentImg
   styleURL = req.body.styleImg
-  os.execute('mkdir ' .. idnum)
+  os.execute('mkdir ' .. toString(idnum))
 
   contentFile = idnum .. string.gsub(contentURL, 'https://s3.amazonaws.com/artificial-neural/', '/')
   print(contentFile)
