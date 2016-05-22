@@ -309,9 +309,9 @@ end)
 app.post('/submitTask', function(req, res)
   print(req.body)
   -- Process Request --
-  --[[id = 1
-  contentURL =  'https://s3.amazonaws.com/artificial-neural/1/content.jpg'
-  styleURL = {'https://s3.amazonaws.com/artificial-neural/1/style-1.jpg'}
+  id = req.body.idnum
+  contentURL =  req.body.contentImg
+  styleURL = req.body.styleImg
 
   contentFile = os.tmpname()
   local contentBody, contentCode = http.request(contentURL)
@@ -320,13 +320,17 @@ app.post('/submitTask', function(req, res)
   cf:write(contentBody)
   cf:close()
 
-  for _,
-  local body, code = http.request(image_url)
-  if not body then error(code) end
-  local f = assert(io.open('.' .. req.url.path, 'wb'))
-  f:write(body)
-  f:close()
-  create({
+  styleFile = {}
+  for i = 0, #styleURL do
+    table.insert(styleFile, os.tmpname())
+  for i = 0, #styleURL do
+    local styleBody, styleCode = http.request(styleURL[i])
+    if not styleBody then error(styleCode) end
+    local sf = assert(io.open(styleFile[i]))
+    sf:write(styleBody)
+    sf:close()
+
+  --[[create({
     content = string.gsub(req.url.path, '/', '', 1),
     style = 'examples/inputs/Saint-Louis-River.jpg',
     blendWeights = nil,
