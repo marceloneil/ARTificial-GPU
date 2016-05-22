@@ -301,6 +301,7 @@ function TVLoss:updateGradInput(input, gradOutput)
 end
 
 function uploadS3(name)
+  print(name)
   local imgUpload = assert(io.open(name)):read("*all")
   print(bucket:put(name, imgUpload))
 end
