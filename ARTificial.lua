@@ -30,7 +30,7 @@ local function create(params)
   -- Style Image --
   local styleImageList = params.style:split(',')
   local styleImageCaffe = {}
-  for i, imgPath in ipairs(styleImageList) do
+  for _, imgPath in ipairs(styleImageList) do
     local img = image.load(imgPath, 3)
     img = image.scale(img, calculatedWidth, 'bilinear')
     local imgCaffe = preprocess(img):float():cuda()
@@ -136,6 +136,7 @@ local function create(params)
 
   local numCalls = 0
   local function feval(x)
+    print('feval called');
     numCalls = numCalls + 1
     net:forward(x)
     local grad = net:updateGradInput(x, dy)
