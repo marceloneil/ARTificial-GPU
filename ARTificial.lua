@@ -307,7 +307,7 @@ function uploadS3(name)
   local reqbody = "test"
   local result, respcode, respheaders, respstatus = http.request {
        method = "POST",
-       url = "http://artificial-kshen3778.c9users.io/sendData";,
+       url = "http://artificial-kshen3778.c9users.io/sendData",
        source = ltn12.source.string(reqbody),
        headers = {
            ["content-type"] = "application/json",
