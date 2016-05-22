@@ -352,7 +352,7 @@ app.post('/submitTask', function(req, res)
     sf:close()
   end
 
-  uploadS3(contentURL, email, idnum)
+  uploadS3(contentFile, email, idnum)
   --[[create({
     content = contentFile,
     style = styleFile[1],
