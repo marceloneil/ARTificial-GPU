@@ -17,6 +17,7 @@ params = {
   style = 'examples/inputs/Saint-Louis-River.jpg',
   blendWeights = nil
 }
+create(params)
 local function create(params)
 
   -- Content Image --
