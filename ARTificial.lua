@@ -296,20 +296,16 @@ end
 
 app.get('/(%a+)', function(req, res)
   image_url = 'https://s3.amazonaws.com/artificial-neural' .. req.url.path
-  filename = string.gsub(req.url.path, '/', '', 1)
-  print(filename)
-  print(req)
-  print(image_url)
-  --local body, code = http.request(image_url)
-  --if not body then error(code) end
-  --local f = assert(io.open('./temp.png', 'wb'))
-  --f:write(body)
-  --f:close()
-  --create({
-  --  content = 'temp.png',
-  --  style = 'examples/inputs/Saint-Louis-River.jpg',
-  --  blendWeights = nil
-  --})
+  local body, code = http.request(image_url)
+  if not body then error(code) end
+  local f = assert(io.open(req.url.path, 'wb'))
+  f:write(body)
+  f:close()
+  create({
+    content = req.url.path,
+    style = 'examples/inputs/Saint-Louis-River.jpg',
+    blendWeights = nil
+  })
   res.send('Hello World!')
 end)
 
