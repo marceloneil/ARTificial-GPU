@@ -12,7 +12,11 @@ cutorch.setDevice(0)
 cudnn.benchmark = true
 cudnn.SpatialConvolution.accGradParameters = nn.SpatialConvolutionMM.accGradParameters
 local cnn = localcaffe.load('models/VGG_ILSVRC_19_layers_deploy.prototxt', 'models/VGG_ILSVRC_19_layers.caffemodel', 'cudnn'):float():cuda()
-
+params = {
+  content = 'examples/inputs/Dinant-and-the-Meuse.jpg',
+  style = 'examples/inputs/Saint-Louis-River.jpg',
+  blendWeights = nil
+}
 local function create(params)
 
   -- Content Image --
