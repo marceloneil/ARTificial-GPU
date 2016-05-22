@@ -296,6 +296,7 @@ end
 
 app.get('/(%a+)', function(req, res)
   image_url = 'https://s3.amazonaws.com/artificial-neural/' .. req.params[1]
+  print(req)
   print(image_url)
   --local body, code = http.request(image_url)
   --if not body then error(code) end
