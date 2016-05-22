@@ -7,7 +7,7 @@ require 'cutorch'
 require 'cunn'
 require 'cudnn'
 
-local http = require('socket.http')
+--local http = require('socket.http')
 local app = require('waffle').CmdLine()
 cutorch.setDevice(1)
 cudnn.benchmark = true
