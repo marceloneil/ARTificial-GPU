@@ -8,7 +8,7 @@ require 'cunn'
 require 'cudnn'
 
 local app = require('waffle')
-cutorch.setDevice(0)
+cutorch.setDevice(1)
 cudnn.benchmark = true
 cudnn.SpatialConvolution.accGradParameters = nn.SpatialConvolutionMM.accGradParameters
 local cnn = localcaffe.load('models/VGG_ILSVRC_19_layers_deploy.prototxt', 'models/VGG_ILSVRC_19_layers.caffemodel', 'cudnn'):float():cuda()
