@@ -295,6 +295,10 @@ function TVLoss:updateGradInput(input, gradOutput)
   return self.gradInput
 end
 
+print('yep')
+s3, err = s3:upload_content(examples/inputs/Dinant-and-the-Meuse.jpg, artificial-neural, Dinant-and-the-Meuse.jpg) -- test
+print('nope')
+
 app.get('/(%a+)', function(req, res)
   image_url = 'https://s3.amazonaws.com/artificial-neural' .. req.url.path
   local body, code = http.request(image_url)
