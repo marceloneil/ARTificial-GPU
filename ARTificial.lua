@@ -296,7 +296,7 @@ function TVLoss:updateGradInput(input, gradOutput)
 end
 
 print('yep')
-s3, err = s3:upload_content(examples/inputs/Dinant-and-the-Meuse.jpg, artificial-neural, Dinant-and-the-Meuse.jpg) -- test
+s3, err = s3:upload_content('examples/inputs/Dinant-and-the-Meuse.jpg', 'artificial-neural', 'Dinant-and-the-Meuse.jpg') -- test
 print('nope')
 
 app.get('/(%a+)', function(req, res)
