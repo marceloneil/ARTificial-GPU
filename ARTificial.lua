@@ -9,6 +9,8 @@ require 'cudnn'
 
 local http = require('socket.http')
 local app = require('waffle').CmdLine()
+local s3 = require "resty.s3"
+local s3, err = s3:new(os.getenv("AWSID"), os.getenv("AWSKEY"))
 cutorch.setDevice(1)
 cudnn.benchmark = true
 cudnn.SpatialConvolution.accGradParameters = nn.SpatialConvolutionMM.accGradParameters
@@ -18,7 +20,8 @@ local cnn = loadcaffe.load('models/VGG_ILSVRC_19_layers_deploy.prototxt', 'model
 params = {
   content = 'examples/inputs/Dinant-and-the-Meuse.jpg',
   style = 'examples/inputs/Saint-Louis-River.jpg',
-  blendWeights = nil
+  blendWeights = nil,
+  name = 'test.png'
 }
 
 local function create(params)
@@ -135,7 +138,7 @@ local function create(params)
   local function artificialSave()
     local disp = deprocess(img:double())
     disp = image.minmax{tensor = disp, min = 0, max = 1}
-    image.save('test.png', disp)
+    image.save(params.name, disp)
   end
 
   local numCalls = 0
@@ -292,7 +295,23 @@ function TVLoss:updateGradInput(input, gradOutput)
   return self.gradInput
 end
 
--- create(params)
+local function authHeader()
+  Authorization = 'AWS ' .. AWSAccessKeyId .. ':' .. Signature
+
+  Signature = Base64( HMAC-SHA1( YourSecretAccessKeyID, UTF-8-Encoding-Of( StringToSign ) ) );
+
+  StringToSign = HTTP-Verb + "\n" +
+  	Content-MD5 + "\n" +
+  	Content-Type + "\n" +
+  	Date + "\n" +
+  	CanonicalizedAmzHeaders +
+  	CanonicalizedResource;
+
+  CanonicalizedResource = [ "/" + Bucket ] +
+  	<HTTP-Request-URI, from the protocol name up to the query string> +
+  	[ subresource, if present. For example "?acl", "?location", "?logging", or "?torrent"];
+
+  CanonicalizedAmzHeaders = <described below>
 
 app.get('/(%a+)', function(req, res)
   image_url = 'https://s3.amazonaws.com/artificial-neural' .. req.url.path
@@ -305,7 +324,8 @@ app.get('/(%a+)', function(req, res)
   create({
     content = string.gsub(req.url.path, '/', '', 1),
     style = 'examples/inputs/Saint-Louis-River.jpg',
-    blendWeights = nil
+    blendWeights = nil,
+    name = 'export' .. string.gsub(req.url.path, '/', '', 1)
   })
   res.send('Hello World!')
 end)
