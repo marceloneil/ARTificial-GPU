@@ -11,7 +11,7 @@ local app = require('waffle')
 cutorch.setDevice(1)
 cudnn.benchmark = true
 cudnn.SpatialConvolution.accGradParameters = nn.SpatialConvolutionMM.accGradParameters
-local cnn = localcaffe.load('models/VGG_ILSVRC_19_layers_deploy.prototxt', 'models/VGG_ILSVRC_19_layers.caffemodel', 'cudnn'):float():cuda()
+local cnn = loadcaffe.load('models/VGG_ILSVRC_19_layers_deploy.prototxt', 'models/VGG_ILSVRC_19_layers.caffemodel', 'cudnn'):float():cuda()
 params = {
   content = 'examples/inputs/Dinant-and-the-Meuse.jpg',
   style = 'examples/inputs/Saint-Louis-River.jpg',
