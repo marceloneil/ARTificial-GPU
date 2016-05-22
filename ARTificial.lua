@@ -306,13 +306,21 @@ app.get('/', function(req, res)
   res.send('<a href="http://art-ificial.net">art-ificial.net</a>')
 end)
 
-app.post('/submitTask/', function(req, res)
+app.post('/submitTask', function(req, res)
   print(req)
   -- Process Request --
   --[[id = 1
   contentURL =  'https://s3.amazonaws.com/artificial-neural/1/content.jpg'
   styleURL = {'https://s3.amazonaws.com/artificial-neural/1/style-1.jpg'}
 
+  contentFile = os.tmpname()
+  local contentBody, contentCode = http.request(contentURL)
+  if not contentBody then error(contentCode) end
+  local cf = assert(io.open(contentFile))
+  cf:write(contentBody)
+  cf:close()
+
+  for _,
   local body, code = http.request(image_url)
   if not body then error(code) end
   local f = assert(io.open('.' .. req.url.path, 'wb'))
