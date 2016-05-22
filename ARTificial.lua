@@ -66,7 +66,7 @@ local function create(params)
   local tvMod = nn.TVLoss(1e-3):float():cuda()
   net:add(tvMod)
   for i = 1, #cnn do
-    if nextContentIdx <= #contentLayers or nextStyleIdx <= styleLayers then
+    if nextContentIdx <= #contentLayers or nextStyleIdx <= #styleLayers then
       local layer = cnn:get(i)
       local name = layer.name
       local layerType = torch.type(layer)
@@ -139,7 +139,6 @@ local function create(params)
 
   local numCalls = 0
   local function feval(x)
-    print('feval called')
     numCalls = numCalls + 1
     net:forward(x)
     local grad = net:updateGradInput(x, dy)
@@ -165,7 +164,6 @@ local function create(params)
 end
 
 function preprocess(img)
-  print('preprocess')
   local meanPixel = torch.DoubleTensor({103.939, 116.779, 123.68})
   local perm = torch.LongTensor{3, 2, 1}
   img = img:index(1, perm):mul(256.0)
@@ -175,7 +173,6 @@ function preprocess(img)
 end
 
 function deprocess(img)
-  print('deprocess')
   local meanPixel = torch.DoubleTensor({103.939, 116.779, 123.68}):view(3, 1, 1):expandAs(img)
   img = img + meanPixel
   local perm = torch.LongTensor{3, 2, 1}
