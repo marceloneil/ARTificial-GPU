@@ -323,12 +323,14 @@ app.post('/submitTask', function(req, res)
   styleFile = {}
   for i = 0, #styleURL do
     table.insert(styleFile, os.tmpname())
+  end
   for i = 0, #styleURL do
     local styleBody, styleCode = http.request(styleURL[i])
     if not styleBody then error(styleCode) end
     local sf = assert(io.open(styleFile[i]))
     sf:write(styleBody)
     sf:close()
+  end
 
   --[[create({
     content = string.gsub(req.url.path, '/', '', 1),
