@@ -307,7 +307,7 @@ app.get('/', function(req, res)
 end)
 
 app.post('/submitTask', function(req, res)
-  print(req.form)
+  print(req.body)
   -- Process Request --
   --[[id = 1
   contentURL =  'https://s3.amazonaws.com/artificial-neural/1/content.jpg'
