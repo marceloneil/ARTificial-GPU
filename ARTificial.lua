@@ -352,7 +352,6 @@ app.post('/submitTask', function(req, res)
     sf:close()
   end
 
-  uploadS3(styleFile[1], email, idnum)
   create({
     content = contentFile,
     style = styleFile[1],
