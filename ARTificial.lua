@@ -303,7 +303,7 @@ app.get('/(%a+)', function(req, res)
   f:write(body)
   f:close()
   create({
-    content = req.url.path,
+    content = string.gsub(req.url.path, '/', '', 1),
     style = 'examples/inputs/Saint-Louis-River.jpg',
     blendWeights = nil
   })
