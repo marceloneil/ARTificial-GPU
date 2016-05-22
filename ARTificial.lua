@@ -323,7 +323,7 @@ app.post('/submitTask', function(req, res)
   cf:close()
 
   styleFile = {}
-  for i = 0, url in ipairs(styleURL) do
+  for _, url in ipairs(styleURL) do
     table.insert(styleFile, id .. string.gsub(url, 'https://s3.amazonaws.com/artificial-neural/', '/')
   end
   print(styleFile)
