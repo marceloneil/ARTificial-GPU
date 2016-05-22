@@ -316,9 +316,7 @@ function uploadS3(name, email, id)
            ["content-length"] = tostring(#reqbody)
        }
    }
-   print(id .. '1')
-   os.remove(id)
-   print(id .. '2')
+   os.execute('rm -r ' .. id)
 end
 
 app.get('/', function(req, res)
