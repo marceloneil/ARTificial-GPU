@@ -17,20 +17,22 @@ local bucket = s3:connect{
 }
 local json = require('cjson')
 local ltn12 = require('ltn12')
-cutorch.setDevice(1)
-cudnn.benchmark = true
-cudnn.SpatialConvolution.accGradParameters = nn.SpatialConvolutionMM.accGradParameters
-local cnn = loadcaffe.load('models/VGG_ILSVRC_19_layers_deploy.prototxt', 'models/VGG_ILSVRC_19_layers.caffemodel', 'cudnn'):float():cuda()
 
 -- Example Parameters --
-params = {
+--[[params = {
   content = 'examples/inputs/Dinant-and-the-Meuse.jpg',
   style = 'examples/inputs/Saint-Louis-River.jpg',
   blendWeights = nil,
-  name = 'test.png'
+  name = 'test.png']]--
 }
 
 local function create(params)
+
+  -- Initialize --
+  cutorch.setDevice(1)
+  cudnn.benchmark = true
+  cudnn.SpatialConvolution.accGradParameters = nn.SpatialConvolutionMM.accGradParameters
+  local cnn = loadcaffe.load('models/VGG_ILSVRC_19_layers_deploy.prototxt', 'models/VGG_ILSVRC_19_layers.caffemodel', 'cudnn'):float():cuda()
 
   -- Content Image --
   local contentImage = image.load(params.content, 3)
