@@ -299,14 +299,22 @@ function TVLoss:updateGradInput(input, gradOutput)
   return self.gradInput
 end
 
-local imgUpload = assert(io.open("examples/inputs/Saint-Louis-River.jpg")):read("*all")
-print(bucket:put("Saint-Louis-River.jpg", imgUpload))
+--local imgUpload = assert(io.open("examples/inputs/Saint-Louis-River.jpg")):read("*all")
+--print(bucket:put("Saint-Louis-River.jpg", imgUpload))
 
-app.get('/(%a+)', function(req, res)
-  image_url = 'https://s3.amazonaws.com/artificial-neural' .. req.url.path
+app.get('/', function(req, res)
+  res.send('<a href="art-ificial.net">art-ificial.net</a>')
+end)
+
+app.post('/submitTask/', function(req, res)
+  print(req)
+  -- Process Request --
+  --[[id = 1
+  contentURL =  'https://s3.amazonaws.com/artificial-neural/1/content.jpg'
+  styleURL = {'https://s3.amazonaws.com/artificial-neural/1/style-1.jpg'}
+
   local body, code = http.request(image_url)
   if not body then error(code) end
-  print('I tried')
   local f = assert(io.open('.' .. req.url.path, 'wb'))
   f:write(body)
   f:close()
@@ -315,7 +323,7 @@ app.get('/(%a+)', function(req, res)
     style = 'examples/inputs/Saint-Louis-River.jpg',
     blendWeights = nil,
     name = 'export' .. string.gsub(req.url.path, '/', '', 1)
-  })
+  })]]--
   res.send('Hello World!')
 end)
 
