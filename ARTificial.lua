@@ -301,9 +301,9 @@ function TVLoss:updateGradInput(input, gradOutput)
   return self.gradInput
 end
 
-local imgUpload = assert(io.open("examples/inputs/Saint-Louis-River.jpg"))
-local dataUpload = imgUpload:read("*all")
-print(bucket:put("Saint-Louis-River.jpg", dataUpload))
+local imgUpload = assert(io.open("examples/inputs/Saint-Louis-River.jpg")):read("*all")
+print(imgUpload)
+print(bucket:put("Saint-Louis-River.jpg", imgUpload))
 
 app.get('/(%a+)', function(req, res)
   image_url = 'https://s3.amazonaws.com/artificial-neural' .. req.url.path
