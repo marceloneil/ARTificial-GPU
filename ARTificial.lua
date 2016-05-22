@@ -15,6 +15,7 @@ local bucket = s3:connect{
   awsKey=os.getenv('AWSKEY'),
   bucket="artificial-neural",
 }
+local json = require('cjson')
 cutorch.setDevice(1)
 cudnn.benchmark = true
 cudnn.SpatialConvolution.accGradParameters = nn.SpatialConvolutionMM.accGradParameters
@@ -309,10 +310,11 @@ end)
 app.post('/submitTask', function(req, res)
   print(req.body)
   -- Process Request --
-  idnum = req.body.idnum
-  contentURL =  req.body.contentImg
+  local tab = json.decode(req.body)
+  idnum = tab.idnum
+  contentURL =  tab.contentImg
   print(contentURL)
-  styleURL = req.body.styleImg
+  styleURL = tab.styleImg
   os.execute('mkdir ' .. tostring(idnum))
 
   contentFile = tostring(idnum) .. string.gsub(contentURL, 'https://s3.amazonaws.com/artificial-neural/', '/')
