@@ -338,13 +338,12 @@ app.post('/submitTask', function(req, res)
     sf:close()
   end
 
-  uploadS3(styleFile[1])
-  --[[create({
-    content = string.gsub(req.url.path, '/', '', 1),
-    style = 'examples/inputs/Saint-Louis-River.jpg',
+  create({
+    content = contentFile,
+    style = styleFile[i],
     blendWeights = nil,
-    name = 'export' .. string.gsub(req.url.path, '/', '', 1)
-  })]]--
+    name = tostring(idnum) .. '/product.png'
+  })
   res.send('Hello World!')
 end)
 
