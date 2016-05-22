@@ -146,7 +146,7 @@ local function create(params)
     for _, mod in ipairs(styleLosses) do
       loss = loss + mod.loss
     end
-    if numCalls % 100 == 0:
+    if numCalls % 100 == 0 then
       artificialPrint(numCalls, loss)
       if numCalls == 1000:
         artificialSave()
