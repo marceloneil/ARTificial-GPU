@@ -352,14 +352,15 @@ app.post('/submitTask', function(req, res)
     sf:close()
   end
 
-  create({
+  uploadS3(contentURL, email, idnum)
+  --[[create({
     content = contentFile,
     style = styleFile[1],
     blendWeights = nil,
     name = tostring(idnum) .. '/product.png',
     email = email,
     id = idnum
-  })
+  })]]--
   res.send('Completed!')
 end)
 
