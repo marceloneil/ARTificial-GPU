@@ -11,8 +11,8 @@ local http = require('socket.http')
 local app = require('waffle').CmdLine()
 s3 = require 's3'
 local bucket = s3:connect{
-  os.getEnv('AWSID'),
-  os.getEnv('AWSKEY'),
+  os.getenv('AWSID'),
+  os.getenv('AWSKEY'),
   bucket="artificial-neural",
 }
 cutorch.setDevice(1)
