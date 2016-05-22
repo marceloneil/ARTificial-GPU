@@ -136,7 +136,7 @@ local function create(params)
 
   local numCalls = 0
   local function feval(x)
-    print('feval called');
+    print('feval called')
     numCalls = numCalls + 1
     net:forward(x)
     local grad = net:updateGradInput(x, dy)
@@ -160,6 +160,7 @@ local function create(params)
   local x, losses = optim.lbfgs(feval, img, optimState)
 
   function preprocess(img)
+    print('preprocess')
     local meanPixel = torch.DoubleTensor({103.939, 116.779, 123.68})
     local perm = torch.LongTensor{3, 2, 1}
     img = img:index(1, perm):mul(256.0)
@@ -169,6 +170,7 @@ local function create(params)
   end
 
   function deprocess(img)
+    print('deprocess')
     local meanPixel = torch.DoubleTensor({103.939, 116.779, 123.68}):view(3, 1, 1):expandAs(img)
     img = img + meanPixel
     local perm = torch.LongTensor{3, 2, 1}
