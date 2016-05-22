@@ -312,8 +312,10 @@ app.post('/submitTask', function(req, res)
   id = req.body.idnum
   contentURL =  req.body.contentImg
   styleURL = req.body.styleImg
+  os.CmdLine('mkdir ' .. id)
 
-  contentFile = os.tmpname()
+  contentFile = id .. string.gsub(contentURL, 'https://s3.amazonaws.com/artificial-neural/', '/')
+  print(contentFile)
   local contentBody, contentCode = http.request(contentURL)
   if not contentBody then error(contentCode) end
   local cf = assert(io.open(contentFile))
@@ -321,9 +323,10 @@ app.post('/submitTask', function(req, res)
   cf:close()
 
   styleFile = {}
-  for i = 0, #styleURL do
-    table.insert(styleFile, os.tmpname())
+  for i = 0, url in ipairs(styleURL) do
+    table.insert(styleFile, id .. string.gsub(url, 'https://s3.amazonaws.com/artificial-neural/', '/')
   end
+  print(styleFile)
   for i = 0, #styleURL do
     local styleBody, styleCode = http.request(styleURL[i])
     if not styleBody then error(styleCode) end
