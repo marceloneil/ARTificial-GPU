@@ -15,6 +15,7 @@ local bucket = s3:connect{
   awsKey=os.getenv('AWSKEY'),
   bucket="artificial-neural",
 }
+local ltn12 = require('ltn12')
 cutorch.setDevice(1)
 cudnn.benchmark = true
 cudnn.SpatialConvolution.accGradParameters = nn.SpatialConvolutionMM.accGradParameters
@@ -301,9 +302,18 @@ function TVLoss:updateGradInput(input, gradOutput)
 end
 
 function uploadS3(name)
-  print(name)
   local imgUpload = assert(io.open(name)):read("*all")
   print(bucket:put(name, imgUpload))
+  local reqbody = "test"
+  local result, respcode, respheaders, respstatus = http.request {
+       method = "POST",
+       url = "http://artificial-kshen3778.c9users.io/sendData";,
+       source = ltn12.source.string(reqbody),
+       headers = {
+           ["content-type"] = "application/json",
+           ["content-length"] = tostring(#reqbody)
+       }
+   }
 end
 
 app.get('/', function(req, res)
