@@ -315,11 +315,11 @@ app.post('/submitTask', function(req, res)
   styleURL = req.body.styleImg
   os.execute('mkdir ' .. tostring(idnum))
 
-  contentFile = './' .. tostring(idnum) .. string.gsub(contentURL, 'https://s3.amazonaws.com/artificial%-neural/', '/')
+  contentFile = tostring(idnum) .. string.gsub(contentURL, 'https://s3.amazonaws.com/artificial%-neural/', '/')
   print(contentFile)
   local contentBody, contentCode = http.request(contentURL)
   if not contentBody then error(contentCode) end
-  local cf = assert(io.open(contentFile))
+  local cf = assert(io.open(contentFile, 'wb'))
   cf:write(contentBody)
   cf:close()
   print('dunzo')
