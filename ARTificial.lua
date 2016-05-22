@@ -294,7 +294,8 @@ end
 -- create(params)
 
 app.get('/', function(req, res)
-   res.send('Hello World!')
+  print('please')
+  res.send('Hello World!')
 end)
 
 app.listen()
