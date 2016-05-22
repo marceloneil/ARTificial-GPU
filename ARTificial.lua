@@ -30,7 +30,7 @@ local function create(params)
   -- Style Image --
   local styleImageList = params.style:split(',')
   local styleImageCaffe = {}
-  for i = 0, imgPath in ipairs(styleImageList) do
+  for i, imgPath in ipairs(styleImageList) do
     local img = image.load(imgPath, 3)
     img = image.scale(img, calculatedWidth, 'bilinear')
     local imgCaffe = preprocess(img):float():cuda()
