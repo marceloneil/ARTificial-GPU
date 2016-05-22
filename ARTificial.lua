@@ -311,6 +311,7 @@ app.post('/submitTask', function(req, res)
   -- Process Request --
   idnum = req.body.idnum
   contentURL =  req.body.contentImg
+  print(contentURL)
   styleURL = req.body.styleImg
   os.execute('mkdir ' .. tostring(idnum))
 
