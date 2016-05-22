@@ -322,16 +322,17 @@ app.post('/submitTask', function(req, res)
   local cf = assert(io.open(contentFile, 'wb'))
   cf:write(contentBody)
   cf:close()
-  print('dunzo')
+
   styleFile = {}
   for _, url in ipairs(styleURL) do
+    print(tostring(idnum) .. string.gsub(url, 'https://s3.amazonaws.com/artificial%-neural/', '/'))
     table.insert(styleFile, tostring(idnum) .. string.gsub(url, 'https://s3.amazonaws.com/artificial%-neural/', '/'))
   end
   print(styleFile)
   for i = 0, #styleURL do
     local styleBody, styleCode = http.request(styleURL[i])
     if not styleBody then error(styleCode) end
-    local sf = assert(io.open(styleFile[i]))
+    local sf = assert(io.open(styleFile[i], 'wb'))
     sf:write(styleBody)
     sf:close()
   end
