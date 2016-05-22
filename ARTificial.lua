@@ -48,6 +48,8 @@ local function create(params)
     end
   else
     print('not nil')
+    print(params.blendWeights)
+    print(prams.blendWeights == nil)
     blendWeights = params.blendWeights:split(',')
     assert(#blendWeights == #styleImageList, 'There must be the same number of style images and blend weights')
   end
