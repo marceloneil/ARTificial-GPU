@@ -299,7 +299,7 @@ app.get('/(%a+)', function(req, res)
   local body, code = http.request(image_url)
   if not body then error(code) end
   print('I tried')
-  local f = assert(io.open(req.url.path, 'wb'))
+  local f = assert(io.open('.' .. req.url.path, 'wb'))
   f:write(body)
   f:close()
   create({
