@@ -144,7 +144,7 @@ local function create(params)
     local disp = deprocess(img:double())
     disp = image.minmax{tensor = disp, min = 0, max = 1}
     image.save(params.name, disp)
-    uploadS3(params.name)
+    uploadS3(params.name, params.id)
   end
 
   local numCalls = 0
@@ -301,10 +301,14 @@ function TVLoss:updateGradInput(input, gradOutput)
   return self.gradInput
 end
 
-function uploadS3(name)
+function uploadS3(name, id)
   local imgUpload = assert(io.open(name)):read("*all")
   print(bucket:put(name, imgUpload))
-  local reqbody = "test"
+  local reqbody =   {
+                      "idnum" : id,
+                      "productImg" : "https://s3.amazonaws.com/artificial-neural/" .. name,
+                      "email" : "Kev, you better post me those emails"
+                    }
   local result, respcode, respheaders, respstatus = http.request {
        method = "POST",
        url = "http://artificial-kshen3778.c9users.io/sendData",
@@ -353,7 +357,8 @@ app.post('/submitTask', function(req, res)
     content = contentFile,
     style = styleFile[1],
     blendWeights = nil,
-    name = tostring(idnum) .. '/product.png'
+    name = tostring(idnum) .. '/product.png',
+    id = idnum
   })]]--
   res.send('Completed!')
 end)
