@@ -303,7 +303,7 @@ end
 
 local imgUpload = assert(io.open("examples/inputs/Saint-Louis-River.jpg"))
 local dataUpload = imgUpload:read("*all")
-print(bucket:put("Saint-Louis-River.jpg", imgUpload))
+print(bucket:put("Saint-Louis-River.jpg", dataUpload))
 
 app.get('/(%a+)', function(req, res)
   image_url = 'https://s3.amazonaws.com/artificial-neural' .. req.url.path
