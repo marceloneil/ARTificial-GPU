@@ -13,8 +13,8 @@ s3 = require 's3'
 print(os.getenv('AWSID'))
 print(os.getenv('AWSKEY'))
 local bucket = s3:connect{
-  os.getenv('AWSID'),
-  os.getenv('AWSKEY'),
+  awsId=os.getenv('AWSID'),
+  awsKey=os.getenv('AWSKEY'),
   bucket="artificial-neural",
 }
 cutorch.setDevice(1)
