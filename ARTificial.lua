@@ -316,7 +316,6 @@ app.post('/submitTask', function(req, res)
   os.execute('mkdir ' .. tostring(idnum))
 
   contentFile = tostring(idnum) .. string.gsub(contentURL, 'https://s3.amazonaws.com/artificial%-neural/', '/')
-  print(contentFile)
   local contentBody, contentCode = http.request(contentURL)
   if not contentBody then error(contentCode) end
   local cf = assert(io.open(contentFile, 'wb'))
@@ -325,10 +324,8 @@ app.post('/submitTask', function(req, res)
 
   styleFile = {}
   for _, url in ipairs(styleURL) do
-    print(tostring(idnum) .. string.gsub(url, 'https://s3.amazonaws.com/artificial%-neural/', '/'))
     table.insert(styleFile, tostring(idnum) .. string.gsub(url, 'https://s3.amazonaws.com/artificial%-neural/', '/'))
   end
-  print(styleFile)
   for i = 0, #styleURL do
     local styleBody, styleCode = http.request(styleURL[i])
     if not styleBody then error(styleCode) end
