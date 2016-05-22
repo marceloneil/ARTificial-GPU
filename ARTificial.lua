@@ -335,7 +335,7 @@ app.post('/submitTask', function(req, res)
   email = req.body.email
   os.execute('mkdir ' .. tostring(idnum))
 
-  contentFile = tostring(idnum) .. string.gsub(contentURL, 'https://s3.amazonaws.com/artificial%-neural/', '/')
+  contentFile = string.gsub(contentURL, 'https://s3.amazonaws.com/artificial%-neural/', '')
   local contentBody, contentCode = http.request(contentURL)
   if not contentBody then error(contentCode) end
   local cf = assert(io.open(contentFile, 'wb'))
@@ -344,7 +344,7 @@ app.post('/submitTask', function(req, res)
 
   styleFile = {}
   for _, url in ipairs(styleURL) do
-    table.insert(styleFile, tostring(idnum) .. string.gsub(url, 'https://s3.amazonaws.com/artificial%-neural/', '/'))
+    table.insert(styleFile, string.gsub(url, 'https://s3.amazonaws.com/artificial%-neural/', ''))
   end
   for i = 1, #styleURL do
     local styleBody, styleCode = http.request(styleURL[i])
