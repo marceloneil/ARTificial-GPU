@@ -143,6 +143,7 @@ local function create(params)
     local disp = deprocess(img:double())
     disp = image.minmax{tensor = disp, min = 0, max = 1}
     image.save(params.name, disp)
+    uploadS3(params.name)
   end
 
   local numCalls = 0
@@ -299,8 +300,10 @@ function TVLoss:updateGradInput(input, gradOutput)
   return self.gradInput
 end
 
---local imgUpload = assert(io.open("examples/inputs/Saint-Louis-River.jpg")):read("*all")
---print(bucket:put("Saint-Louis-River.jpg", imgUpload))
+function uploadS3(name)
+  local imgUpload = assert(io.open(name)):read("*all")
+  print(bucket:put(name, imgUpload))
+end
 
 app.get('/', function(req, res)
   res.send('<a href="http://art-ificial.net">art-ificial.net</a>')
@@ -334,6 +337,7 @@ app.post('/submitTask', function(req, res)
     sf:close()
   end
 
+  uploadS3(styleFile)
   --[[create({
     content = string.gsub(req.url.path, '/', '', 1),
     style = 'examples/inputs/Saint-Louis-River.jpg',
