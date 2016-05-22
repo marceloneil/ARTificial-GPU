@@ -38,7 +38,7 @@ local function create(params)
   local contentImage = image.load(params.content, 3)
   local height = contentImage:size(2)
   local width = contentImage:size(3)
-  local calculatedWidth = math.floor(width * math.sqrt(500000 / (height * width)))
+  local calculatedWidth = math.floor(width * math.sqrt(350000 / (height * width)))
   contentImage = image.scale(contentImage, calculatedWidth)
   local contentImageCaffe = preprocess(contentImage):float():cuda()
 
