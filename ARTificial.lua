@@ -7,6 +7,7 @@ require 'cutorch'
 require 'cunn'
 require 'cudnn'
 
+local http = require('socket.http')
 local app = require('waffle').CmdLine()
 cutorch.setDevice(1)
 cudnn.benchmark = true
@@ -293,9 +294,22 @@ end
 
 -- create(params)
 
-app.get('/', function(req, res)
-  print('please')
+app.get('/(%a+)', function(req, res)
+  print(req)
+  image_url = 'https://s3.amazonaws.com/artificial-neural/' + req.params[1]
+  --local body, code = http.request(image_url)
+  --if not body then error(code) end
+  --local f = assert(io.open('./temp.png', 'wb'))
+  --f:write(body)
+  --f:close()
+  --create({
+  --  content = 'temp.png',
+  --  style = 'examples/inputs/Saint-Louis-River.jpg',
+  --  blendWeights = nil
+  --})
   res.send('Hello World!')
 end)
+
+app.get()
 
 app.listen()
