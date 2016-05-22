@@ -41,11 +41,13 @@ local function create(params)
   end
   local blendWeights = nil
   if params.blendWeights == 'nil' then
+    print('nil')
     blendWeights = {}
     for i = 1, #styleImageList do
       table.insert(blendWeights, 1.0)
     end
   else
+    print('not nil')
     blendWeights = params.blendWeights:split(',')
     assert(#blendWeights == #styleImageList, 'There must be the same number of style images and blend weights')
   end
